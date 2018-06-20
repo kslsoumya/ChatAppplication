@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href='/'>MyChat</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#" (click)="gotToSignIn()">Sign-In </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="row p-5 m-0">
+    <div class="col-sm p-5"></div>
+    <div class="col-sm">
+      <h2 class="form-heading">Please Login</h2>
+      <br/>
+      <label for="email" class="sr-only">Email:</label>
+      <input type="email" class="form-control"  [(ngModel)]="email" placeholder="EmailId"  required>
+      <br/>
+      <label for="password" class="sr-only">Password:</label>
+      <input type="password" class="form-control"[(ngModel)]="password"  placeholder="Password"   required>
+      <br/>
+      <button type="submit" class="btn btn-primary" (click)="signInFunction()">Sign in</button>
+    </div>
+    <div class="col-sm"></div>
+  </div>

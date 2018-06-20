@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href='/'>MyChat</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+    aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#" (click)="gotToSignIn()">Sign-In </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="row p-0 m-0">
+  <div class="col-sm p-5"></div>
+  <div class="col-sm">
+    <h2 class="form-heading">SignUp to Chat</h2>
+    <br/>
+    <span><strong>FirstName:</strong></span>
+    <label for="firstName" class="sr-only">FirstName:</label>
+    <input type="text" class="form-control" id="firstName" [(ngModel)]="firstName" placeholder="FirstName"  required>
+    <br/>
+    <span><strong>LastName</strong></span>
+    <label for="lastName" class="sr-only">LastName</label>
+    <input type="text" class="form-control" id="lastName" [(ngModel)]='lastName' placeholder="LastName"   required>
+    <br/>
+
+    <label for="mobile"><strong>Mobile:</strong></label>
+    <input type="tel" class="form-control" id="mobile" [(ngModel)]='mobile' placeholder="Mobile"   required>
+    <br/>
+
+    <label for="email"><strong>Email:</strong></label>
+    <input type="email" class="form-control" id="email" [(ngModel)]='email' placeholder="Email"  required>
+    <br/>
+
+    <label for="password"> <strong>Password:</strong></label>
+    <input type="password" class="form-control" id="inputPassword3" [(ngModel)]='password' placeholder="Password" required>
+    <br/>
+
+    <label for="apiKey"> <strong>ApiKey:</strong></label>
+    <input type="text" class="form-control" id="apiKey" [(ngModel)]='apiKey' placeholder="API Key" required>
+    <br/>
+
+
+
+
+    <button type="submit" class="btn btn-primary" (click)="signUpFunction()">Sign in</button>
+  </div>
+  <div class="col-sm"></div>
+</div>
