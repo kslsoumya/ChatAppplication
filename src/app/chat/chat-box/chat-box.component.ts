@@ -37,22 +37,27 @@ export class ChatBoxComponent implements OnInit {
   constructor(private toastr: ToastrService, private appService: AppService, private _route: Router,
     private cookieService: CookieService, private socketService: SocketService) {
     this.receiverName = this.cookieService.get('receivername');
+    console.log(this.receiverName);
     this.receiverId = this.cookieService.get('receiverId');
+    console.log(this.receiverId);
   }
 
   ngOnInit() {
     this.authToken = this.cookieService.get('authToken');
+    console.log(this.authToken);
     this.userInfo = this.appService.getUserInfo();
-    this.receiverId = this.cookieService.get('receiverId');
-    this.receiverName = this.cookieService.get('receivername');
-    console.log(this.receiverId, this.receiverName);
-    if (this.receiverId !== null && this.receiverId !== undefined && this.receiverId !== '') {
-      this.userSelectedTochat(this.receiverId, this.receiverName);
-    }
+    console.log(this.userInfo);
+
+    // this.receiverId = this.cookieService.get('receiverId');
+    // this.receiverName = this.cookieService.get('receivername');
+    console.log(this.receiverId + '--------' + this.receiverName);
+    // if (this.receiverId !== null && this.receiverId !== undefined && this.receiverId !== '') {
+    //   this.userSelectedTochat(this.receiverId, this.receiverName);
+    // }
     this.checkStatus();
 
     this.verifyUserConfirmation();
-    this.getOnlineUsersList();
+    // this.getOnlineUsersList();
 
     this.getMessageFromUser();
 
@@ -63,6 +68,7 @@ export class ChatBoxComponent implements OnInit {
       this._route.navigate(['/']);
       return false;
     } else {
+      console.log(this.cookieService.get('authToken'));
       return true;
     }
   }
@@ -70,22 +76,26 @@ export class ChatBoxComponent implements OnInit {
     console.log('verifyUsercontent');
     this.socketService.verifyUser().subscribe(
       (data) => {
+        console.log(data + 'In verify User');
         this.disconnectedSocket = false;
         this.socketService.setUser(this.authToken);
-        console.log(data);
         this.getOnlineUsersList();
-      });
+      },
+    error => {
+      console.log(error);
+    });
   }
 
   public getOnlineUsersList = (): any => {
     console.log('online usersList');
 
     this.socketService.onlineUserList().subscribe(
-      (userList) => {
+      (data) => {
+        console.log(data);
         this.userList = [];
         // tslint:disable-next-line:forin
-        for (const x in userList) {
-          const temp = { 'userId': x, 'name': userList[x], 'unread': 0, 'chating': false };
+        for (const x in data) {
+          const temp = { 'userId': x, 'name': data[x], 'unread': 0, 'chating': false };
           this.userList.push(temp);
         }
         console.log(this.userList);
@@ -137,6 +147,7 @@ export class ChatBoxComponent implements OnInit {
         createdOn: new Date()
       };
       this.socketService.sendMessage(chatMessage);
+      this.pushToChatWindow(chatMessage);
     } else {
       this.toastr.warning('Message cannot be empty');
     }
@@ -158,7 +169,7 @@ export class ChatBoxComponent implements OnInit {
 
   }
   public loadPreviousChatFromUser: any = () => {
-    const previousData = this.messageList.length > 0 ? this.messageList.slice() : '';
+    const previousData = this.messageList.length > 0 ? this.messageList.slice() : [];
     this.socketService.getPreviousChat(this.userInfo.userId, this.receiverId, this.pageValue * 10).
       subscribe(apiResponse => {
         if (apiResponse.status === 200) {

@@ -34,9 +34,9 @@ export class AppService {
   }
 
   public logOutFunction(): Observable<any> {
-    const header = new HttpHeaders()
+    const params = new HttpParams()
       .set('authToken', this.cookieService.get('authToken'));
-    return (this._http.post(`${this.baseUrl}/users/logout`, header));
+    return (this._http.post(`${this.baseUrl}/users/logout`, params));
   }
 
   public setUserInfo(data): any {

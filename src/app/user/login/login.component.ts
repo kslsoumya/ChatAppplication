@@ -39,13 +39,14 @@ export class LoginComponent implements OnInit {
       };
       this.appService.signInFunction(data).subscribe(
         (apiResponse) => {
+          console.log(apiResponse);
           if (apiResponse.status === 200) {
+            this._route.navigate(['/chat']);
             this.toastr.success('SignedIn Successfully', 'success!!');
             this.cookieService.set('authToken', apiResponse.data.authToken);
             this.cookieService.set('receiverId', apiResponse.data.userDetails.userId);
-            this.cookieService.set('receivedName', apiResponse.data.userDetails.firstName + ' ' + apiResponse.data.userDetails.lastName);
+            this.cookieService.set('receivername', apiResponse.data.userDetails.firstName + ' ' + apiResponse.data.userDetails.lastName);
             this.appService.setUserInfo(apiResponse.data.userDetails);
-            this._route.navigate(['/chat']);
           } else {
             this.toastr.error(apiResponse.message);
             console.log('some error');

@@ -22,10 +22,11 @@ export class SocketService {
   // Events to be listened----
 
 
-  public verifyUser = (): any => {
+  public verifyUser = () => {
     // console.log('verifyUser');
     return Observable.create((observer) => {
       this.socket.on('verifyUser', (data) => {
+        console.log(data);
         observer.next(data);
       });
 
@@ -35,12 +36,15 @@ export class SocketService {
 
 
   public onlineUserList = (): any => {
-    // console.log('inside onlineUserList');
-    return Observable.create((observer) => {
-      this.socket.on('online-user-list', (usersList) => {
-        observer.next(usersList);
-      });
+    console.log('inside onlineUserList');
+    const subscription =  Observable.create((observer) => {
+        this.socket.on('online-user-list', (usersList) => {
+          console.log(usersList);
+          observer.next(usersList);
+        });
     });
+    console.log(subscription);
+    return subscription;
   }
 
   public disConnect = (): any => {

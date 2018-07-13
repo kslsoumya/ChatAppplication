@@ -33,7 +33,7 @@
                 </div>
               </li>
               <li class="p-2 typeOfChats">
-                Offiline Users:
+                Offline Users:
               </li>
               <li class="clearfix cursorPointer" [ngClass]="{'activeChat': user.chatting == true}" (click)="userSelectedTochat(user.userId, user.name)"
                 *ngFor="let user of userList">
@@ -60,7 +60,7 @@
         <i class="fa fa-circle offline" *ngIf="disconnectedSocket == true"></i>
         <br>
         <br>
-        <button (click)="logout()" class="btn btn-info customButton">Logout</button>
+        <button (click)="logOut()" class="btn btn-info customButton">Logout</button>
       </div>
 
       <ul class="list">
@@ -89,12 +89,13 @@
       </div>
       <!-- end chat-header -->
 
-      <div #scrollMe [scrollTop]="(scrollToChatTop)?0:scrollMe.scrollHeight" class="chat-history" *ngIf="receiverName">
+      <div #scrollMe [scrollTop]="(scrollToChatTop)?0:scrollMe.scrollHeight" 
+      class="chat-history" *ngIf="receiverName">
 
         <ul>
           <li class="textCenter" *ngIf="receiverName">
 
-            <span  class="cursorPointer" (click)="loadEarlierPageOfChat()">Load Previous Chat</span>
+            <span  class="cursorPointer" (click)="loadEarlierPageOfChats()">Load Previous Chat</span>
 
             <br>
 
